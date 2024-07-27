@@ -19,7 +19,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> save(@Valid  @RequestBody UsuarioCreateDTO createDTO){
-        Usuario user = usuarioService.salvar(toUsuario(createDTO));
+        Usuario user = usuarioService.salvar(usuarioService.toUsuario(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.toDto(user));
 
     }
