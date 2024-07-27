@@ -26,6 +26,8 @@ public class Usuario implements Serializable {
     @Column(name = "role", nullable = false, length = 25)
     private Role role;
 
+    @OneToOne(mappedBy = "usuario")
+    private Cliente cliente;
 
     public enum Role{
         ROLE_ADMIN,ROLE_CLIENTE;

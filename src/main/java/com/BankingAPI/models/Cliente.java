@@ -31,4 +31,8 @@ public class Cliente implements Serializable {
 
     @OneToMany(mappedBy = "cliente")
     private Set<ContaDigital> contasDigitais = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 }
