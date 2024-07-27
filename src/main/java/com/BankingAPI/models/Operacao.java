@@ -28,6 +28,10 @@ public class Operacao implements Serializable {
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
 
+    @ManyToOne
+    @JoinColumn(name = "id_conta_digital")
+    private ContaDigital contaDigital;
+
 
     public enum TipoOperacao{
         DEPOSITO,SAQUE,TRANSFERENCIA,PAGAMENTO;
