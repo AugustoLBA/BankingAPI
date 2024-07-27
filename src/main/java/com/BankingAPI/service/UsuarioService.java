@@ -1,6 +1,7 @@
 package com.BankingAPI.service;
 
 import com.BankingAPI.dto.UsuarioCreateDTO;
+import com.BankingAPI.dto.UsuarioResponseDTO;
 import com.BankingAPI.models.Usuario;
 import com.BankingAPI.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,12 @@ public class UsuarioService {
         Usuario user = new Usuario();
         BeanUtils.copyProperties(createDTO, user);
         return user;
+    }
+
+    public UsuarioResponseDTO toDto(Usuario user) {
+        UsuarioResponseDTO responseDTO = new UsuarioResponseDTO();
+        BeanUtils.copyProperties(user, responseDTO);
+        responseDTO.setRole(user.getRole().name().substring("ROLE_".length()));
+        return responseDTO;
     }
 }
