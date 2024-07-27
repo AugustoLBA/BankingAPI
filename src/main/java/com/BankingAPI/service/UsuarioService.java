@@ -24,6 +24,7 @@ public class UsuarioService {
     public Usuario toUsuario(UsuarioCreateDTO createDTO) {
         Usuario user = new Usuario();
         BeanUtils.copyProperties(createDTO, user);
+        user.setRole(Usuario.Role.valueOf(createDTO.getRole()));
         return user;
     }
 
