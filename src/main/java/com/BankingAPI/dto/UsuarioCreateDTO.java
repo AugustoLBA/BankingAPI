@@ -19,7 +19,7 @@ public class UsuarioCreateDTO {
     private String username;
 
     @NotBlank
-    @Size(min = 6, max = 6)
+    @Size(min = 6, max = 6, message = "O campo senha não pode ser nulo, e deve ter seis caracteres")
     private String senha;
 
     @NotBlank(message = "O campo role não pode está vazio")
