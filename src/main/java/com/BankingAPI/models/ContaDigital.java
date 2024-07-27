@@ -29,5 +29,8 @@ public class ContaDigital implements Serializable {
 
     @Column(name = "senha", nullable = false, length = 200)
     private String senha;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "agencia_id")
+    private Agencia agencia;
 }

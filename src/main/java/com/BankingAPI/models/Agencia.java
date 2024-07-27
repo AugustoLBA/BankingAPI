@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,4 +28,7 @@ public class Agencia implements Serializable {
     private LocalDateTime dataCriacao;
     @Column(name = "telefone", nullable = false,length = 11)
     private String telefone;
+
+    @OneToMany(mappedBy = "agencia")
+    private Set<ContaDigital> contas = new HashSet<>();
 }
