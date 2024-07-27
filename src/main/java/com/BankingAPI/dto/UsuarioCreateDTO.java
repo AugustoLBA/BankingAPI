@@ -21,4 +21,7 @@ public class UsuarioCreateDTO {
     @NotBlank
     @Size(min = 6, max = 6)
     private String senha;
+
+    @NotBlank(message = "O campo role não pode está vazio")
+    private String role;
 }
