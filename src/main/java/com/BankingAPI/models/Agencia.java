@@ -33,5 +33,5 @@ public class Agencia implements Serializable {
     private Set<ContaDigital> contas = new HashSet<>();
 
     @OneToMany(mappedBy = "agencia")
-    private Analista analista;
+    private Set<Analista> analistas = new HashSet<>();
 }
