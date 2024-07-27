@@ -28,4 +28,8 @@ public class Analista implements Serializable {
 
     @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
+
+    @ManyToOne
+    @JoinColumn(name = "agencia_id")
+    private Agencia agencia;
 }
