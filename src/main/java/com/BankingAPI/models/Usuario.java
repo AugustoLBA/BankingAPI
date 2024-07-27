@@ -29,6 +29,9 @@ public class Usuario implements Serializable {
     @OneToOne(mappedBy = "usuario")
     private Cliente cliente;
 
+    @OneToOne(mappedBy = "usuario")
+    private Analista analista;
+
     public enum Role{
         ROLE_ADMIN,ROLE_CLIENTE;
     }

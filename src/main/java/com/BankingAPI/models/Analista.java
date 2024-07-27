@@ -32,4 +32,8 @@ public class Analista implements Serializable {
     @ManyToOne
     @JoinColumn(name = "agencia_id")
     private Agencia agencia;
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 }
