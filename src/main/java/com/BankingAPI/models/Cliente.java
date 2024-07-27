@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,4 +28,7 @@ public class Cliente implements Serializable {
     private String cpf;
     @Column(name = "telefone", nullable = false, unique = true, length = 11)
     private String telfone;
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<ContaDigital> contasDigitais = new HashSet<>();
 }

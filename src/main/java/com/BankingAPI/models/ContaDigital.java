@@ -33,4 +33,8 @@ public class ContaDigital implements Serializable {
     @ManyToOne
     @JoinColumn(name = "agencia_id")
     private Agencia agencia;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }
