@@ -43,6 +43,12 @@ public class ClienteService {
     public List<Cliente> buscarTodos(){
         return clienteRepository.findAll();
     }
+
+    @Transactional
+    public void deletarPorId(Long id){
+        Cliente cliente = buscarPorId(id);
+        clienteRepository.delete(cliente);
+    }
     public Cliente toCliente(ClienteCreateDTO createDTO){
         Cliente cliente = new Cliente();
         BeanUtils.copyProperties(createDTO,cliente);
