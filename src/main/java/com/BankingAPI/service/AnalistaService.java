@@ -42,6 +42,8 @@ public class AnalistaService {
     public AnalistaResponseDTO toDto(Analista analista){
         AnalistaResponseDTO responseDTO = new AnalistaResponseDTO();
         BeanUtils.copyProperties(analista, responseDTO);
+        responseDTO.setAgenciaId(analista.getAgencia().getId());
+        responseDTO.setUsuarioId(analista.getUsuario().getId());
         return responseDTO;
     }
 
