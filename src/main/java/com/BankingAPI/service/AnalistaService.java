@@ -34,6 +34,8 @@ public class AnalistaService {
     public Analista toAnalista(AnalistaCreateDTO createDTO){
         Analista analista = new Analista();
         BeanUtils.copyProperties(createDTO, analista);
+        analista.setAgencia(agenciaService.buscarPorId(createDTO.getAgenciaId()));
+        analista.setUsuario(usuarioService.buscarPorId(createDTO.getUsuarioId()));
         return analista;
     }
 
