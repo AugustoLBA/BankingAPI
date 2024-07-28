@@ -43,9 +43,14 @@ public class ContaDigitalController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PatchMapping("/{id}/{valorDeposito}")
+    @PatchMapping("/deposito/{id}/{valorDeposito}")
     public ResponseEntity<ContaDigitalResponseDTO> deposito(@PathVariable Long id, @PathVariable BigDecimal valorDeposito){
         ContaDigital contaDigital = contaDigitalService.deposito(valorDeposito, id);
+        return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
+    }
+    @PatchMapping("/saque/{id}/{valorSaque}")
+    public ResponseEntity<ContaDigitalResponseDTO> sacar(@PathVariable Long id, @PathVariable BigDecimal valorSaque){
+        ContaDigital contaDigital = contaDigitalService.sacar(valorSaque,id);
         return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
     }
 
