@@ -21,7 +21,7 @@ public class OperacaoService {
     public Operacao salvar(Operacao operacao){
        return operacaoRepository.save(operacao);
     }
-    
+
     @Transactional(readOnly = true)
     public Operacao buscarPorId(Long id){
         return operacaoRepository.findById(id).orElseThrow(()->
