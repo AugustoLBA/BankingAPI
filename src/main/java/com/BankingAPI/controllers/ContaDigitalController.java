@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/contasDigitais")
@@ -27,5 +29,11 @@ public class ContaDigitalController {
     public ResponseEntity<ContaDigitalResponseDTO> findById(@PathVariable Long id){
         ContaDigital contaDigital = contaDigitalService.buscarPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ContaDigitalResponseDTO>> findAll(){
+        List<ContaDigital> contaDigitals = contaDigitalService.buscarTodos();
+        return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toListDto(contaDigitals));
     }
 }
