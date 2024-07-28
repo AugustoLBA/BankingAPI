@@ -111,6 +111,7 @@ public class ContaDigitalService {
         Operacao operacao = new Operacao();
         operacao.setTipo(Operacao.TipoOperacao.TRANSFERENCIA);
         operacao.setValor(valorTransferencia);
+        operacao.setContaDigital(contaOrigem);
         operacao.setContaOrigem(contaOrigem);
         operacao.setContaDestino(contaDestino);
         operacaoService.salvar(operacao);
