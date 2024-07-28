@@ -2,6 +2,7 @@ package com.BankingAPI.controllers;
 
 import com.BankingAPI.dto.UsuarioCreateDTO;
 import com.BankingAPI.dto.UsuarioResponseDTO;
+import com.BankingAPI.dto.UsuarioSenhaDTO;
 import com.BankingAPI.models.Usuario;
 import com.BankingAPI.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -36,5 +37,10 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioResponseDTO>> getAll(){
         List<UsuarioResponseDTO> responseDTOS = usuarioService.toListDto(usuarioService.buscarTodos());
         return ResponseEntity.status(HttpStatus.OK).body(responseDTOS);
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updatePasword(@Valid @PathVariable Long id, UsuarioSenhaDTO senhaDTO){
+            usuarioService.atualizarSenha(id,senhaDTO);
+            return ResponseEntity.noContent().build();
     }
 }
