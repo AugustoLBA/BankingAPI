@@ -9,4 +9,8 @@ public class AnalistaResponseDTO {
     private String cpf;
 
     private String telefone;
+
+    private Long usuarioId;
+
+    private Long agenciaId;
 }
