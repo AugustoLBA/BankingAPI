@@ -1,5 +1,6 @@
 package com.BankingAPI.infra;
 
+import com.BankingAPI.exceptions.DepositoInvalidoException;
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.PasswordInvalidException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
@@ -40,5 +41,11 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessage> usernameUniqueViolationException(UsernameUniqueViolationException ex){
         ErrorMessage errorMessage= new ErrorMessage(HttpStatus.CONFLICT, ex.getMessage());
         return new ResponseEntity<>(errorMessage,HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(DepositoInvalidoException.class)
+    public ResponseEntity<ErrorMessage> depositoInvalidoException(DepositoInvalidoException ex){
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
 }
