@@ -19,6 +19,10 @@ public class AnalistaService {
 
     private final AnalistaRepository analistaRepository;
 
+    private final UsuarioService usuarioService;
+
+    private final AgenciaService agenciaService;
+
     public Analista salvar(Analista analista){
         try {
             return analistaRepository.save(analista);
