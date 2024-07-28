@@ -30,7 +30,7 @@ public class Agencia implements Serializable {
     @CreatedDate
     @Column(name = "dataCriacao", nullable = false)
     private LocalDateTime dataCriacao;
-    
+
     @Column(name = "telefone", nullable = false,length = 11)
     private String telefone;
 
