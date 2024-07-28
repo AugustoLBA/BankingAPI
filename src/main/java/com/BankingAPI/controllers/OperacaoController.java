@@ -1,7 +1,13 @@
 package com.BankingAPI.controllers;
 
+import com.BankingAPI.dto.OperacaoResponseDTO;
+import com.BankingAPI.models.Operacao;
 import com.BankingAPI.service.OperacaoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
@@ -10,4 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class OperacaoController {
 
     private final OperacaoService operacaoService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OperacaoResponseDTO> findById(@PathVariable Long id){
+        Operacao operacao = operacaoService.buscarPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(operacaoService.toDto(operacao));
+    }
 }
