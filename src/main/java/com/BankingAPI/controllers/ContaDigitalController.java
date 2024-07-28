@@ -36,4 +36,9 @@ public class ContaDigitalController {
         List<ContaDigital> contaDigitals = contaDigitalService.buscarTodos();
         return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toListDto(contaDigitals));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBYId(@PathVariable Long id){
+        contaDigitalService.deletarPorId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
