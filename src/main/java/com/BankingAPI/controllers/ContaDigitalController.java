@@ -54,4 +54,10 @@ public class ContaDigitalController {
         return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
     }
 
+    @PatchMapping("/transferencia/{idOrigem}/{idDestino}/{valorTransferencia}")
+    public ResponseEntity<ContaDigitalResponseDTO> transferencia(@PathVariable Long idOrigem, @PathVariable Long idDestino, @PathVariable BigDecimal valorTransferencia){
+        ContaDigital contaDigital = contaDigitalService.transferencia(idOrigem,idDestino,valorTransferencia);
+        return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
+    }
+
 }
