@@ -2,6 +2,7 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.ClienteCreateDTO;
 import com.BankingAPI.dto.ClienteResponseDTO;
+import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Cliente;
 import com.BankingAPI.repositories.ClienteRepository;
@@ -30,6 +31,12 @@ public class ClienteService {
         }catch (DataIntegrityViolationException e){
             throw new UsernameUniqueViolationException(String.format("Analista com CPF: {%s} já cadastrado.", cliente.getCpf()));
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id){
+        return clienteRepository.findById(id).orElseThrow(
+                ()-> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
     public Cliente toCliente(ClienteCreateDTO createDTO){
         Cliente cliente = new Cliente();
