@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -26,5 +23,11 @@ public class AnalistaController {
     public ResponseEntity<AnalistaResponseDTO> save(@Valid @RequestBody AnalistaCreateDTO createDTO){
         Analista analista = analistaService.salvar(analistaService.toAnalista(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(analistaService.toDto(analista));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AnalistaResponseDTO> findById(@PathVariable Long id){
+        Analista analista = analistaService.buscarPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(analistaService.toDto(analista));
     }
 }
