@@ -5,10 +5,12 @@ import com.BankingAPI.dto.UsuarioResponseDTO;
 import com.BankingAPI.dto.UsuarioSenhaDTO;
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.PasswordInvalidException;
+import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Usuario;
 import com.BankingAPI.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,13 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario){
-       return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+        }catch (DataIntegrityViolationException ex){
+            throw new UsernameUniqueViolationException(String.format("Username {%s} já cadastrado.", usuario.getUsername()));
+
+        }
+
     }
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id){
