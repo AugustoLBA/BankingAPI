@@ -29,6 +29,10 @@ public class UsuarioService {
                ()-> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
 
     }
+    @Transactional(readOnly = true)
+    public List<Usuario> buscarTodos(){
+        return usuarioRepository.findAll();
+    }
 
 
     public Usuario toUsuario(UsuarioCreateDTO createDTO) {
