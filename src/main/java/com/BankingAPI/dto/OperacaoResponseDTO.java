@@ -18,7 +18,7 @@ public class OperacaoResponseDTO {
     private Long id;
 
     private LocalDateTime dataRealizada;
-    
+
     private Operacao.TipoOperacao tipo;
 
     private BigDecimal valor;
