@@ -21,7 +21,7 @@ public class AgenciaController {
 
     @PostMapping
     public ResponseEntity<AgenciaResponseDTO> save(@Valid @RequestBody AgenciaCreateDTO createDTO){
-        Agencia agencia = agenciaService.salvar(agenciaService.toAgencia);
+        Agencia agencia = agenciaService.salvar(agenciaService.toAgencia(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(agenciaService.toDto(agencia));
     }
 }
