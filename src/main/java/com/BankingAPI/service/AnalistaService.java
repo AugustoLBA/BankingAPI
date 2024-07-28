@@ -38,6 +38,11 @@ public class AnalistaService {
         -> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
 
+    @Transactional(readOnly = true)
+    public List<Analista> buscarTodos(){
+        return analistaRepository.findAll();
+    }
+
     public Analista toAnalista(AnalistaCreateDTO createDTO){
         Analista analista = new Analista();
         BeanUtils.copyProperties(createDTO, analista);
