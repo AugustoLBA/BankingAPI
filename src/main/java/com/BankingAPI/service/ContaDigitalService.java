@@ -5,6 +5,7 @@ import com.BankingAPI.dto.ContaDigitalResponseDTO;
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.ContaDigital;
+import com.BankingAPI.models.Operacao;
 import com.BankingAPI.repositories.ContaDigitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,8 @@ public class ContaDigitalService {
     private final AgenciaService agenciaService;
 
     private final ClienteService clienteService;
+
+    private final OperacaoService operacaoService;
 
 
     @Transactional
@@ -49,6 +53,23 @@ public class ContaDigitalService {
     public void deletarPorId(Long id){
         ContaDigital contaDigital = buscarPorId(id);
         contaDigitalRepository.delete(contaDigital);
+    }
+
+    public ContaDigital deposito(BigDecimal valor, Long id){
+        if(valor.compareTo(BigDecimal.ZERO) <= 0){
+            throw new DepositoInvalidoException("O valor do deposito não pode ser menor ou igual a zero !");
+        }
+        ContaDigital contaDigital = buscarPorId(id);
+        contaDigital.setSaldo(contaDigital.getSaldo().add(valor));
+
+        Operacao operacao = new Operacao();
+        operacao.setTipo(Operacao.TipoOperacao.DEPOSITO);
+        operacao.setValor(valor);
+        operacao.setContaDigital(contaDigital);
+        operacaoService.salvar(operacao);
+
+        return contaDigital;
+
     }
     public ContaDigital toContaDigital(ContaDigitalCreateDTO createDTO){
         ContaDigital contaDigital = new ContaDigital();
