@@ -38,6 +38,11 @@ public class ClienteService {
         return clienteRepository.findById(id).orElseThrow(
                 ()-> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
+
+    @Transactional(readOnly = true)
+    public List<Cliente> buscarTodos(){
+        return clienteRepository.findAll();
+    }
     public Cliente toCliente(ClienteCreateDTO createDTO){
         Cliente cliente = new Cliente();
         BeanUtils.copyProperties(createDTO,cliente);
