@@ -23,7 +23,7 @@ public class ContaDigital implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "numero", nullable = false)
+    @Column(name = "numero", nullable = false, unique = true)
     private int numero;
 
     @Column(name = "saldo")
