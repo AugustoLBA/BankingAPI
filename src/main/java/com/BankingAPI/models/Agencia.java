@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,10 +23,14 @@ public class Agencia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "nome", nullable = false,length = 100)
     private String nome;
+
+    @CreatedDate
     @Column(name = "dataCriacao", nullable = false)
     private LocalDateTime dataCriacao;
+    
     @Column(name = "telefone", nullable = false,length = 11)
     private String telefone;
 
