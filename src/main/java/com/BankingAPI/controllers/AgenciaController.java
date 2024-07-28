@@ -30,4 +30,10 @@ public class AgenciaController {
         List<AgenciaResponseDTO> responseDTOS = agenciaService.toListDto(agenciaService.buscarTodos());
         return ResponseEntity.status(HttpStatus.OK).body(responseDTOS);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AgenciaResponseDTO> findById(@PathVariable Long id){
+        AgenciaResponseDTO responseDTO = agenciaService.toDto(agenciaService.buscarPorId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+    }
 }
