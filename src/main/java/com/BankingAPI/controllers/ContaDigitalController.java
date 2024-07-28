@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,4 +42,11 @@ public class ContaDigitalController {
         contaDigitalService.deletarPorId(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PatchMapping("/{id}/{valorDeposito}")
+    public ResponseEntity<ContaDigitalResponseDTO> deposito(@PathVariable Long id, @PathVariable BigDecimal valorDeposito){
+        ContaDigital contaDigital = contaDigitalService.deposito(valorDeposito, id);
+        return ResponseEntity.status(HttpStatus.OK).body(contaDigitalService.toDto(contaDigital));
+    }
+
 }
