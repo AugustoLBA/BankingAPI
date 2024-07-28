@@ -2,6 +2,7 @@ package com.BankingAPI.infra;
 
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.PasswordInvalidException;
+import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -33,5 +34,11 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessage> paswordInvalidException(PasswordInvalidException ex){
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST,ex.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UsernameUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> usernameUniqueViolationException(UsernameUniqueViolationException ex){
+        ErrorMessage errorMessage= new ErrorMessage(HttpStatus.CONFLICT, ex.getMessage());
+        return new ResponseEntity<>(errorMessage,HttpStatus.CONFLICT);
     }
 }
