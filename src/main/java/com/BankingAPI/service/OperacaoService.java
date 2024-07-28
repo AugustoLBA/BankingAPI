@@ -1,6 +1,7 @@
 package com.BankingAPI.service;
 
 import com.BankingAPI.dto.OperacaoResponseDTO;
+import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.models.Operacao;
 import com.BankingAPI.repositories.OperacaoRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,12 @@ public class OperacaoService {
     @Transactional
     public Operacao salvar(Operacao operacao){
        return operacaoRepository.save(operacao);
+    }
+    
+    @Transactional(readOnly = true)
+    public Operacao buscarPorId(Long id){
+        return operacaoRepository.findById(id).orElseThrow(()->
+                new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
     public OperacaoResponseDTO toDto(Operacao operacao){
         OperacaoResponseDTO responseDTO = new OperacaoResponseDTO();
