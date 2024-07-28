@@ -45,6 +45,11 @@ public class ContaDigitalService {
     public List<ContaDigital> buscarTodos(){
         return contaDigitalRepository.findAll();
     }
+    @Transactional
+    public void deletarPorId(Long id){
+        ContaDigital contaDigital = buscarPorId(id);
+        contaDigitalRepository.delete(contaDigital);
+    }
     public ContaDigital toContaDigital(ContaDigitalCreateDTO createDTO){
         ContaDigital contaDigital = new ContaDigital();
         BeanUtils.copyProperties(createDTO,contaDigital);
