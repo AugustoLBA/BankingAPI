@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,9 +30,8 @@ public class Agencia implements Serializable {
     @Column(name = "nome", nullable = false,length = 100)
     private String nome;
 
-    @CreatedDate
     @Column(name = "dataCriacao")
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Column(name = "telefone", nullable = false,length = 11)
     private String telefone;
