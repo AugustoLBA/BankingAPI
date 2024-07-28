@@ -4,6 +4,7 @@ import com.BankingAPI.dto.ContaDigitalCreateDTO;
 import com.BankingAPI.dto.ContaDigitalResponseDTO;
 import com.BankingAPI.exceptions.DepositoInvalidoException;
 import com.BankingAPI.exceptions.EntityNotFoundException;
+import com.BankingAPI.exceptions.SaqueInvalidoException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.ContaDigital;
 import com.BankingAPI.models.Operacao;
@@ -69,6 +70,26 @@ public class ContaDigitalService {
         operacao.setContaDigital(contaDigital);
         operacaoService.salvar(operacao);
 
+        return contaDigital;
+
+    }
+
+    public ContaDigital sacar(BigDecimal valorSaque, Long id){
+        if(valorSaque.compareTo(BigDecimal.ZERO) <= 0){
+            throw new SaqueInvalidoException("O valor do saque não pode ser menor ou igual a zero !");
+        }
+        ContaDigital contaDigital = buscarPorId(id);
+        if(valorSaque.compareTo(contaDigital.getSaldo()) > 0){
+            throw new SaqueInvalidoException("O valor do saque é maior que o SALDO da conta !");
+        }
+        contaDigital.setSaldo(contaDigital.getSaldo().subtract(valorSaque));
+
+        Operacao operacao = new Operacao();
+        operacao.setContaDigital(contaDigital);
+        operacao.setTipo(Operacao.TipoOperacao.SAQUE);
+        operacao.setValor(valorSaque);
+
+        operacaoService.salvar(operacao);
         return contaDigital;
 
     }
