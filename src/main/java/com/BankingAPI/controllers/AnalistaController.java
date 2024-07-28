@@ -37,4 +37,10 @@ public class AnalistaController {
         List<Analista> analistas = analistaService.buscarTodos();
         return ResponseEntity.status(HttpStatus.OK).body(analistaService.toListDto(analistas));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        analistaService.deletarPorId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
