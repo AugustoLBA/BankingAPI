@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
 @RestController
@@ -28,5 +30,11 @@ public class ClienteController {
     public ResponseEntity<ClienteResponseDTO> findById(@PathVariable Long id){
         Cliente cliente = clienteService.buscarPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.toDto(cliente));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ClienteResponseDTO>> findAll(){
+        List<Cliente> clientes = clienteService.buscarTodos();
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.toListDto(clientes));
     }
 }
