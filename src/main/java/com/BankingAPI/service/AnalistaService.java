@@ -43,6 +43,12 @@ public class AnalistaService {
         return analistaRepository.findAll();
     }
 
+    @Transactional
+    public void deletarPorId(Long id){
+        Analista analista = buscarPorId(id);
+        analistaRepository.delete(analista);
+    }
+
     public Analista toAnalista(AnalistaCreateDTO createDTO){
         Analista analista = new Analista();
         BeanUtils.copyProperties(createDTO, analista);
