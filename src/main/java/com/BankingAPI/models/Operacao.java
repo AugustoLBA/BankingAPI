@@ -32,6 +32,14 @@ public class Operacao implements Serializable {
     @JoinColumn(name = "id_conta_digital")
     private ContaDigital contaDigital;
 
+    @ManyToOne
+    @JoinColumn(name = "id_conta_origem")
+    private ContaDigital contaOrigem;
+
+    @ManyToOne
+    @JoinColumn(name = "id_conta_destino")
+    private ContaDigital contaDestino;
+
 
     public enum TipoOperacao{
         DEPOSITO,SAQUE,TRANSFERENCIA,PAGAMENTO;
