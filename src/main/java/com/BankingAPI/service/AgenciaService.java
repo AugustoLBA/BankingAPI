@@ -34,6 +34,16 @@ public class AgenciaService {
                         -> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
 
+    @Transactional(readOnly = true)
+    public List<Agencia> buscarTodos(){
+        return agenciaRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public void deletarPorId(Long id){
+        Agencia agencia = buscarPorId(id);
+        agenciaRepository.delete(agencia);
+    }
     public Agencia toAgencia(AgenciaCreateDTO createDTO) {
         Agencia agencia = new Agencia();
         BeanUtils.copyProperties(createDTO,agencia);
@@ -44,10 +54,6 @@ public class AgenciaService {
         AgenciaResponseDTO responseDTO = new AgenciaResponseDTO();
         BeanUtils.copyProperties(agencia,responseDTO);
         return responseDTO;
-    }
-    @Transactional(readOnly = true)
-    public List<Agencia> buscarTodos(){
-        return agenciaRepository.findAll();
     }
 
     public List<AgenciaResponseDTO> toListDto(List<Agencia> agencias){
