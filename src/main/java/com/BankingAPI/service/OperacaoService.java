@@ -1,6 +1,7 @@
 package com.BankingAPI.service;
 
 import com.BankingAPI.dto.OperacaoResponseDTO;
+import com.BankingAPI.dto.OperacaoTransferenciaDTO;
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.models.Operacao;
 import com.BankingAPI.repositories.OperacaoRepository;
@@ -33,7 +34,12 @@ public class OperacaoService {
         return operacaoRepository.findAll();
     }
     public OperacaoResponseDTO toDto(Operacao operacao){
-        OperacaoResponseDTO responseDTO = new OperacaoResponseDTO();
+        OperacaoResponseDTO responseDTO = null;
+        if(operacao.getTipo().equals(Operacao.TipoOperacao.TRANSFERENCIA)){
+            responseDTO = new OperacaoTransferenciaDTO();
+        }else{
+            responseDTO = new OperacaoResponseDTO();
+        }
         BeanUtils.copyProperties(operacao,responseDTO);
         responseDTO.setContaDigitalId(operacao.getContaDigital().getId());
         return responseDTO;
