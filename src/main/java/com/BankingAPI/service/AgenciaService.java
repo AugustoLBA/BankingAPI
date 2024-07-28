@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
 @Service
@@ -41,5 +42,9 @@ public class AgenciaService {
     @Transactional(readOnly = true)
     public List<Agencia> buscarTodos(){
         return agenciaRepository.findAll();
+    }
+
+    public List<AgenciaResponseDTO> toListDto(List<Agencia> agencias){
+        return agencias.stream().map(agenciaAux -> toDto(agenciaAux)).collect(Collectors.toList());
     }
 }
