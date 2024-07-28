@@ -93,6 +93,30 @@ public class ContaDigitalService {
         return contaDigital;
 
     }
+
+    public ContaDigital transferencia(Long idContaOrigem, Long idContaDestino, BigDecimal valorTransferencia){
+        if(valorTransferencia.compareTo(BigDecimal.ZERO) <= 0){
+            throw new SaqueInvalidoException("O valor da transferencia não pode ser menor ou igual a zero !");
+        }
+        ContaDigital contaOrigem = buscarPorId(idContaOrigem);
+        if(valorTransferencia.compareTo(contaOrigem.getSaldo()) > 0){
+            throw new SaqueInvalidoException("O valor do saque é maior que o SALDO da conta !");
+        }
+
+        contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valorTransferencia));
+
+        ContaDigital contaDestino = buscarPorId(idContaDestino);
+        contaDestino.setSaldo(contaDestino.getSaldo().add(valorTransferencia));
+
+        Operacao operacao = new Operacao();
+        operacao.setTipo(Operacao.TipoOperacao.TRANSFERENCIA);
+        operacao.setValor(valorTransferencia);
+        operacao.setContaOrigem(contaOrigem);
+        operacao.setContaDestino(contaDestino);
+        operacaoService.salvar(operacao);
+
+        return contaOrigem;
+    }
     public ContaDigital toContaDigital(ContaDigitalCreateDTO createDTO){
         ContaDigital contaDigital = new ContaDigital();
         BeanUtils.copyProperties(createDTO,contaDigital);
