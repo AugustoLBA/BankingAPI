@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
@@ -25,5 +22,11 @@ public class ClienteController {
     public ResponseEntity<ClienteResponseDTO> save(@Valid @RequestBody ClienteCreateDTO createDTO){
         Cliente cliente = clienteService.salvar(clienteService.toCliente(createDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.toDto(cliente));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> findById(@PathVariable Long id){
+        Cliente cliente = clienteService.buscarPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.toDto(cliente));
     }
 }
