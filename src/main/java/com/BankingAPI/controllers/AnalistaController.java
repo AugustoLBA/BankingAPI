@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
 @RestController
@@ -29,5 +30,11 @@ public class AnalistaController {
     public ResponseEntity<AnalistaResponseDTO> findById(@PathVariable Long id){
         Analista analista = analistaService.buscarPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(analistaService.toDto(analista));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AnalistaResponseDTO>> findAll(){
+        List<Analista> analistas = analistaService.buscarTodos();
+        return ResponseEntity.status(HttpStatus.OK).body(analistaService.toListDto(analistas));
     }
 }
