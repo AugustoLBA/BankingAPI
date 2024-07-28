@@ -40,6 +40,11 @@ public class ContaDigitalService {
         return contaDigitalRepository.findById(id).orElseThrow(()->
                 new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
+
+    @Transactional(readOnly = true)
+    public List<ContaDigital> buscarTodos(){
+        return contaDigitalRepository.findAll();
+    }
     public ContaDigital toContaDigital(ContaDigitalCreateDTO createDTO){
         ContaDigital contaDigital = new ContaDigital();
         BeanUtils.copyProperties(createDTO,contaDigital);
