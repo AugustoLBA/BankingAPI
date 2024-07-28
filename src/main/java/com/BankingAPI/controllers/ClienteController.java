@@ -37,4 +37,9 @@ public class ClienteController {
         List<Cliente> clientes = clienteService.buscarTodos();
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.toListDto(clientes));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        clienteService.deletarPorId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
