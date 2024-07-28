@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
 @RestController
 @RequestMapping("api/v1/operacoes")
@@ -21,5 +24,11 @@ public class OperacaoController {
     public ResponseEntity<OperacaoResponseDTO> findById(@PathVariable Long id){
         Operacao operacao = operacaoService.buscarPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(operacaoService.toDto(operacao));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OperacaoResponseDTO>> findAll(){
+        List<Operacao> operacaos = operacaoService.buscarTodos();
+        return ResponseEntity.status(HttpStatus.OK).body(operacaoService.toListDto(operacaos));
     }
 }
