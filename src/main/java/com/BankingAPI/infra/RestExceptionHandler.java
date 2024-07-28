@@ -1,6 +1,7 @@
 package com.BankingAPI.infra;
 
 import com.BankingAPI.exceptions.EntityNotFoundException;
+import com.BankingAPI.exceptions.PaswordInvalidException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex){
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(PaswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> paswordInvalidException(PaswordInvalidException ex){
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST,ex.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
