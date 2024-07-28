@@ -2,10 +2,12 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.AnalistaCreateDTO;
 import com.BankingAPI.dto.AnalistaResponseDTO;
+import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Analista;
 import com.BankingAPI.repositories.AnalistaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,13 @@ public class AnalistaService {
 
     private final AnalistaRepository analistaRepository;
 
+    public Analista salvar(Analista analista){
+        try {
+            return analistaRepository.save(analista);
+        }catch (DataIntegrityViolationException ex){
+            throw new UsernameUniqueViolationException(String.format("Analista com CPF: {%s} já cadastrado.", analista.getCpf()));
+        }
+    }
 
     public Analista toAnalista(AnalistaCreateDTO createDTO){
         Analista analista = new Analista();
