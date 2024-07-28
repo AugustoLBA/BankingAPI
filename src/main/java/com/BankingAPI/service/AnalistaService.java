@@ -2,6 +2,7 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.AnalistaCreateDTO;
 import com.BankingAPI.dto.AnalistaResponseDTO;
+import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Analista;
 import com.BankingAPI.repositories.AnalistaRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +31,11 @@ public class AnalistaService {
         }catch (DataIntegrityViolationException ex){
             throw new UsernameUniqueViolationException(String.format("Analista com CPF: {%s} já cadastrado.", analista.getCpf()));
         }
+    }
+    @Transactional(readOnly = true)
+    public Analista buscarPorId(Long id){
+        return analistaRepository.findById(id).orElseThrow(()
+        -> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
 
     public Analista toAnalista(AnalistaCreateDTO createDTO){
