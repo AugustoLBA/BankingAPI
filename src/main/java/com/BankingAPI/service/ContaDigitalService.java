@@ -2,6 +2,7 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.ContaDigitalCreateDTO;
 import com.BankingAPI.dto.ContaDigitalResponseDTO;
+import com.BankingAPI.exceptions.DepositoInvalidoException;
 import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.ContaDigital;
