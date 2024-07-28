@@ -1,6 +1,7 @@
 package com.BankingAPI.service;
 
 import com.BankingAPI.dto.AgenciaCreateDTO;
+import com.BankingAPI.dto.AgenciaResponseDTO;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Agencia;
 import com.BankingAPI.repositories.AgenciaRepository;
@@ -27,5 +28,11 @@ public class AgenciaService {
         Agencia agencia = new Agencia();
         BeanUtils.copyProperties(createDTO,agencia);
         return agencia;
+    }
+
+    public AgenciaResponseDTO toDto(Agencia agencia) {
+        AgenciaResponseDTO responseDTO = new AgenciaResponseDTO();
+        BeanUtils.copyProperties(agencia,responseDTO);
+        return responseDTO;
     }
 }
