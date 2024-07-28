@@ -36,4 +36,10 @@ public class AgenciaController {
         AgenciaResponseDTO responseDTO = agenciaService.toDto(agenciaService.buscarPorId(id));
         return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        agenciaService.deletarPorId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
