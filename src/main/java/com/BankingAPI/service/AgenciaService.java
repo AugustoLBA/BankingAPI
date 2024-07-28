@@ -39,7 +39,7 @@ public class AgenciaService {
         return agenciaRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void deletarPorId(Long id){
         Agencia agencia = buscarPorId(id);
         agenciaRepository.delete(agencia);
