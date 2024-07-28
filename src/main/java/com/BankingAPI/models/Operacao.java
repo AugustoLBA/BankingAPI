@@ -21,7 +21,7 @@ public class Operacao implements Serializable {
     @Column(name = "id")
     private Long id;
     @Column(name = "dataRealizada")
-    private LocalDateTime dataRealizada;
+    private LocalDateTime dataRealizada = LocalDateTime.now();
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false, length = 13)
     private TipoOperacao tipo;
