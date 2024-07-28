@@ -28,15 +28,15 @@ public class Operacao implements Serializable {
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_conta_digital")
     private ContaDigital contaDigital;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_conta_origem")
     private ContaDigital contaOrigem;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_conta_destino")
     private ContaDigital contaDestino;
 
