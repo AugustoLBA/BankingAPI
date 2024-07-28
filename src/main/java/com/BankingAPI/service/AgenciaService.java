@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor // Injeção de depêndencia via lombok
 @Service
@@ -34,5 +37,9 @@ public class AgenciaService {
         AgenciaResponseDTO responseDTO = new AgenciaResponseDTO();
         BeanUtils.copyProperties(agencia,responseDTO);
         return responseDTO;
+    }
+    @Transactional(readOnly = true)
+    public List<Agencia> buscarTodos(){
+        return agenciaRepository.findAll();
     }
 }
