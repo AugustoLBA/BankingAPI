@@ -2,6 +2,7 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.AgenciaCreateDTO;
 import com.BankingAPI.dto.AgenciaResponseDTO;
+import com.BankingAPI.exceptions.EntityNotFoundException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Agencia;
 import com.BankingAPI.repositories.AgenciaRepository;
@@ -26,6 +27,11 @@ public class AgenciaService {
         }catch (DataIntegrityViolationException ex){
             throw new UsernameUniqueViolationException(String.format("Nome de agencia {%s} já cadastrado.", agencia.getNome()));
         }
+    }
+    @Transactional(readOnly = true)
+    public Agencia buscarPorId(Long id){
+        return agenciaRepository.findById(id).orElseThrow(()
+                        -> new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
 
     public Agencia toAgencia(AgenciaCreateDTO createDTO) {
