@@ -28,7 +28,7 @@ public class Agencia implements Serializable {
     private String nome;
 
     @CreatedDate
-    @Column(name = "dataCriacao", nullable = false)
+    @Column(name = "dataCriacao")
     private LocalDateTime dataCriacao;
 
     @Column(name = "telefone", nullable = false,length = 11)
