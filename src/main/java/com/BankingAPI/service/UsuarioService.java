@@ -4,7 +4,7 @@ import com.BankingAPI.dto.UsuarioCreateDTO;
 import com.BankingAPI.dto.UsuarioResponseDTO;
 import com.BankingAPI.dto.UsuarioSenhaDTO;
 import com.BankingAPI.exceptions.EntityNotFoundException;
-import com.BankingAPI.exceptions.PaswordInvalidException;
+import com.BankingAPI.exceptions.PasswordInvalidException;
 import com.BankingAPI.models.Usuario;
 import com.BankingAPI.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +38,11 @@ public class UsuarioService {
     @Transactional
     public Usuario atualizarSenha(Long id,UsuarioSenhaDTO senhaDTO){
         if(!senhaDTO.getNovaSenha().equals(senhaDTO.getConfirmaSenha())){
-            throw new PaswordInvalidException("Nova senha não condiz com confirma senha!");
+            throw new PasswordInvalidException("Nova senha não condiz com confirma senha!");
         }
         Usuario user = buscarPorId(id);
         if(!user.getSenha().equals(senhaDTO.getSenhaAtual())){
-            throw new PaswordInvalidException("Senha invalida!");
+            throw new PasswordInvalidException("Senha invalida!");
         }
         user.setSenha(senhaDTO.getNovaSenha());
         return user;

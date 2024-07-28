@@ -1,15 +1,13 @@
 package com.BankingAPI.infra;
 
 import com.BankingAPI.exceptions.EntityNotFoundException;
-import com.BankingAPI.exceptions.PaswordInvalidException;
-import org.springframework.http.HttpHeaders;
+import com.BankingAPI.exceptions.PasswordInvalidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +29,8 @@ public class RestExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(PaswordInvalidException.class)
-    public ResponseEntity<ErrorMessage> paswordInvalidException(PaswordInvalidException ex){
+    @ExceptionHandler(PasswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> paswordInvalidException(PasswordInvalidException ex){
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST,ex.getMessage());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
