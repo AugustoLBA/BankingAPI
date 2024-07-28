@@ -12,8 +12,8 @@ import lombok.Setter;
 public class AgenciaResponseDTO {
 
     private String nome;
-
-    private int numero;
     
+    private int numero;
+
     private String telefone;
 }
