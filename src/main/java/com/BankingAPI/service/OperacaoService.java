@@ -27,6 +27,11 @@ public class OperacaoService {
         return operacaoRepository.findById(id).orElseThrow(()->
                 new EntityNotFoundException(String.format("Id {%s} não encontrado !", id)));
     }
+
+    @Transactional(readOnly = true)
+    public List<Operacao> buscarTodos(){
+        return operacaoRepository.findAll();
+    }
     public OperacaoResponseDTO toDto(Operacao operacao){
         OperacaoResponseDTO responseDTO = new OperacaoResponseDTO();
         BeanUtils.copyProperties(operacao,responseDTO);
