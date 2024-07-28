@@ -39,7 +39,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDTOS);
     }
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updatePasword(@Valid @PathVariable Long id, UsuarioSenhaDTO senhaDTO){
+    public ResponseEntity<Void> updatePasword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDTO senhaDTO){
             usuarioService.atualizarSenha(id,senhaDTO);
             return ResponseEntity.noContent().build();
     }
