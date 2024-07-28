@@ -2,11 +2,14 @@ package com.BankingAPI.service;
 
 import com.BankingAPI.dto.ClienteCreateDTO;
 import com.BankingAPI.dto.ClienteResponseDTO;
+import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.Cliente;
 import com.BankingAPI.repositories.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +23,14 @@ public class ClienteService {
     private final UsuarioService usuarioService;
 
 
+    @Transactional
+    public Cliente salvar(Cliente cliente){
+        try {
+            return clienteRepository.save(cliente);
+        }catch (DataIntegrityViolationException e){
+            throw new UsernameUniqueViolationException(String.format("Analista com CPF: {%s} já cadastrado.", cliente.getCpf()));
+        }
+    }
     public Cliente toCliente(ClienteCreateDTO createDTO){
         Cliente cliente = new Cliente();
         BeanUtils.copyProperties(createDTO,cliente);
