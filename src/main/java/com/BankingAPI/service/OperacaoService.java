@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class OperacaoService {
 
     private final OperacaoRepository operacaoRepository;
+
     @Transactional
     public Operacao salvar(Operacao operacao){
        return operacaoRepository.save(operacao);
@@ -34,15 +35,19 @@ public class OperacaoService {
         return operacaoRepository.findAll();
     }
     public OperacaoResponseDTO toDto(Operacao operacao){
-        OperacaoResponseDTO responseDTO = null;
         if(operacao.getTipo().equals(Operacao.TipoOperacao.TRANSFERENCIA)){
-            responseDTO = new OperacaoTransferenciaDTO();
-        }else{
-            responseDTO = new OperacaoResponseDTO();
+
+            OperacaoTransferenciaDTO responseDTO = new OperacaoTransferenciaDTO();
+            BeanUtils.copyProperties(operacao,responseDTO);
+            responseDTO.setContaDigitalId(operacao.getContaDigital().getId());
+            responseDTO.setContaOrigemId(operacao.getContaOrigem().getId());
+            responseDTO.setContaDestinoId(operacao.getContaDestino().getId());
+            return responseDTO;
         }
-        BeanUtils.copyProperties(operacao,responseDTO);
-        responseDTO.setContaDigitalId(operacao.getContaDigital().getId());
-        return responseDTO;
+            OperacaoResponseDTO responseDTO = new OperacaoResponseDTO();
+            BeanUtils.copyProperties(operacao,responseDTO);
+            responseDTO.setContaDigitalId(operacao.getContaDigital().getId());
+            return responseDTO;
     }
 
     public List<OperacaoResponseDTO> toListDto(List<Operacao> operacaoList){
