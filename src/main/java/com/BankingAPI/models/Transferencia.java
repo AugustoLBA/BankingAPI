@@ -2,10 +2,10 @@ package com.BankingAPI.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -15,10 +15,11 @@ import lombok.Setter;
 @Table(name = "transferencias")
 public class Transferencia extends Operacao{
 
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_conta_destino")
     private ContaDigital contaDestino;
 
-    public Transferencia(){
-        this.setTipo(TipoOperacao.TRANSFERENCIA);
+    public Transferencia() {
+       this.setTipo(Operacao.TipoOperacao.TRANSFERENCIA);
     }
 }

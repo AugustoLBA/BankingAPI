@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "operacoes")
-public class Operacao implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Operacao implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,14 +32,6 @@ public class Operacao implements Serializable {
     @ManyToOne(optional = true)
     @JoinColumn(name = "id_conta_digital")
     private ContaDigital contaDigital;
-
-//    @ManyToOne(optional = true)
-//    @JoinColumn(name = "id_conta_origem")
-//    private ContaDigital contaOrigem;
-//
-//    @ManyToOne(optional = true)
-//    @JoinColumn(name = "id_conta_destino")
-//    private ContaDigital contaDestino;
 
 
     public enum TipoOperacao{

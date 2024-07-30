@@ -32,6 +32,8 @@ public class ContaDigitalService {
 
     private final OperacaoService operacaoService;
 
+    private final TransferenciaService transferenciaService;
+
 
     @Transactional
     public ContaDigital salvar(ContaDigital contaDigital){
@@ -113,7 +115,7 @@ public class ContaDigitalService {
         operacao.setValor(valorTransferencia);
         operacao.setContaDigital(contaOrigem);
         operacao.setContaDestino(contaDestino);
-        operacaoService.salvar(operacao);
+        transferenciaService.salvar(operacao);
 
         return contaOrigem;
     }
