@@ -32,13 +32,13 @@ public class Operacao implements Serializable {
     @JoinColumn(name = "id_conta_digital")
     private ContaDigital contaDigital;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "id_conta_origem")
-    private ContaDigital contaOrigem;
-
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "id_conta_destino")
-    private ContaDigital contaDestino;
+//    @ManyToOne(optional = true)
+//    @JoinColumn(name = "id_conta_origem")
+//    private ContaDigital contaOrigem;
+//
+//    @ManyToOne(optional = true)
+//    @JoinColumn(name = "id_conta_destino")
+//    private ContaDigital contaDestino;
 
 
     public enum TipoOperacao{
