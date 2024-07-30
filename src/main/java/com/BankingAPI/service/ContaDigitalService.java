@@ -8,6 +8,7 @@ import com.BankingAPI.exceptions.SaqueInvalidoException;
 import com.BankingAPI.exceptions.UsernameUniqueViolationException;
 import com.BankingAPI.models.ContaDigital;
 import com.BankingAPI.models.Operacao;
+import com.BankingAPI.models.Transferencia;
 import com.BankingAPI.repositories.ContaDigitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -108,11 +109,9 @@ public class ContaDigitalService {
         ContaDigital contaDestino = buscarPorId(idContaDestino);
         contaDestino.setSaldo(contaDestino.getSaldo().add(valorTransferencia));
 
-        Operacao operacao = new Operacao();
-        operacao.setTipo(Operacao.TipoOperacao.TRANSFERENCIA);
+        Transferencia operacao = new Transferencia();
         operacao.setValor(valorTransferencia);
         operacao.setContaDigital(contaOrigem);
-        operacao.setContaOrigem(contaOrigem);
         operacao.setContaDestino(contaDestino);
         operacaoService.salvar(operacao);
 
